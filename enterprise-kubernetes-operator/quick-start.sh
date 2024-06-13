@@ -3,6 +3,19 @@ export CM_version=master
 export CM_namespace=mongodb
 export CM_URL=https://cloud.mongodb.com
 
+if [[ -v $CM_ORGID ]]; then
+  read -r -p "Please provide your Cloud Manager Organization ID: " CM_ORGID
+fi
+
+if [[ -v $CM_PUBKEY ]]; then
+  read -r -p "Please provide your API Public Key: " CM_PUBKEY
+fi
+
+if [[ -v $CM_PRIKEY ]]; then
+  read -r -p "Please provide your API Private Key: " CM_PRIKEY
+fi
+
+
 # check if the minikube command is available and setup our cluser/profile
 if ! minikube &> /dev/null
 then 

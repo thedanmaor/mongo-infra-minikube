@@ -12,6 +12,41 @@ export CM_PRIKEY=5a3f6634-1245-48c1-a683-373992baaa14
 bash quick-start.sh
 ```
 
+### Example 2, prompting for values
+```
+bash quick-start.sh 
+Please provide your Cloud Manager Organization ID: 5addaf80d383ad7df4cbd310
+Please provide your API Public Key: uglagfda
+Please provide your API Private Key: 5a3f6634-1245-48c1-a683-373992baaa14
+😄  [cloudmanager] minikube v1.33.1 on Nixos 24.05
+    ▪ MINIKUBE_WANTUPDATENOTIFICATION=false
+✨  Using the docker driver based on existing profile
+👍  Starting "cloudmanager" primary control-plane node in "cloudmanager" cluster
+🚜  Pulling base image v0.0.44 ...
+🏃  Updating the running docker "cloudmanager" container ...
+🐳  Preparing Kubernetes v1.30.0 on Docker 26.1.1 ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "cloudmanager" cluster and "mongodb" namespace by default
+|--------------|-----------|---------|--------------|------|---------|---------|-------|----------------|--------------------|
+|   Profile    | VM Driver | Runtime |      IP      | Port | Version | Status  | Nodes | Active Profile | Active Kubecontext |
+|--------------|-----------|---------|--------------|------|---------|---------|-------|----------------|--------------------|
+| cloudmanager | docker    | docker  | 192.168.49.2 | 8443 | v1.30.0 | Running |     1 |                | *                  |
+|--------------|-----------|---------|--------------|------|---------|---------|-------|----------------|--------------------|
+Installing the operator into the mongodb namespace
+
+...Extra output removed...
+
+Creating credentials for the Kubernetes Operator to access MongoDB Cloud Manager
+secret/my-credentials created
+Creating One Project using a ConfigMap
+configmap/my-project created
+Deploying Sample Replica Set
+mongodb.mongodb.com/my-replica-set created
+It can take a few minutes for pods to get going, please check Servers in Cloud Manager and kubectl get mdb
+```
+
 ### What next
 - It should take a few minutes for your Cloud Manger project to be created (using your org api key)
 - The pods should come up one at a time and start to appear on the servers tab
