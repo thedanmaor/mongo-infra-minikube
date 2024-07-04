@@ -128,7 +128,7 @@ awk -v AKO_ORGID="$AKO_ORGID" \
     -v AKO_PUBKEY="$AKO_PUBKEY" \
     -v AKO_PRIKEY="$AKO_PRIKEY" \
     -v AKO_PROJNAME="$AKO_PROJNAME" \
-    -v AKO_IPACCESS=$(curl icanhazip.com) \
+    -v AKO_IPACCESS=$(curl ipinfo.io/ip) \
     -v AKO_KEEPUNTIL=$(date  +%F -d "+1 days") \
     -f setup.awk deploy-a-cluster-template.yaml > deploy-a-cluster.yaml
 #kubectl apply -f deploy-a-cluster.yaml
