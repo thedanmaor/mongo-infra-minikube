@@ -1,23 +1,23 @@
 #!/bin/bash
 export AKO_namespace=mongodb-atlas-system
 
-if [[ ! -v $AKO_ORGID ]]; then
+if [[ -z ${AKO_ORGID+x} ]]; then
   read -r -p "Please provide your Atlas Organization ID: " AKO_ORGID
 fi
 
-if [[ ! -v $AKO_PROJID ]]; then
+if [[ -z ${AKO_PROJID+x} ]]; then
   read -r -p "Please provide your Atlas Project ID: " AKO_PROJID
 fi
 
-if [[ ! -v $AKO_PUBKEY ]]; then
+if [[ -z ${AKO_PUBKEY+x} ]]; then
   read -r -p "Please provide your API Public Key: " AKO_PUBKEY
 fi
 
-if [[ ! -v $AKO_PRIKEY ]]; then
+if [[ -z ${AKO_PRIKEY+x} ]]; then
   read -r -p "Please provide your API Private Key: " AKO_PRIKEY
 fi
 
-if [[ ! -v $AKO_PROJNAME ]]; then
+if [[ -z ${AKO_PROJNAME+x} ]]; then
   read -r -p "Please provide your existing Project Name: " AKO_PROJNAME
 fi
 
