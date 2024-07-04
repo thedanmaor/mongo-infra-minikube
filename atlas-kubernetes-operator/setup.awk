@@ -1,0 +1,10 @@
+{
+	gsub(/orgid_goes_here/,AKO_ORGID);
+    gsub(/projectid_goes_here/,AKO_PROJID);
+    gsub(/public_goes_here/,AKO_PUBKEY);
+    gsub(/private_goes_here/,AKO_PRIKEY);
+    gsub(/existing_project_name_here/,AKO_PROJNAME);
+    gsub(/0.0.0.0/,AKO_IPACCESS);
+    gsub(/1970-01-01/,AKO_KEEPUNTIL);
+    print;
+}

@@ -1,0 +1,92 @@
+apiVersion: v1
+stringData:
+  orgId: orgid_goes_here
+  projectID: projectid_goes_here
+  publicApiKey: public_goes_here
+  privateApiKey: private_goes_here
+kind: Secret
+metadata:
+  labels:
+    atlas.mongodb.com/type: credentials
+  name: my-project-connection
+  namespace: mongodb-atlas-system
+type: Opaque
+
+---
+
+apiVersion: atlas.mongodb.com/v1
+kind: AtlasProject
+metadata:
+  name: existing_project_name_here
+  namespace: mongodb-atlas-system
+spec:
+  name: existing_project_name_here
+  connectionSecretRef:
+    name: my-project-connection
+  projectIpAccessList:
+    - cidrBlock: "0.0.0.0/32"
+      comment: "created by github.com/karl-denby/mongo-infra-minikube"
+  alertConfigurations:
+    - eventTypeName: "REPLICATION_OPLOG_WINDOW_RUNNING_OUT"
+      enabled: true
+      notifications:
+        - delayMin: 0
+          emailEnabled: true
+          intervalMin: 60
+          roles: ["GROUP_OWNER"]
+          smsEnabled: false
+          typeName: "WEBHOOK"
+      threshold:
+        operator: "LESS_THAN"
+        threshold: "1"
+        units: "HOURS"
+  alertConfigurationSyncEnabled: true
+  withDefaultAlertsSettings: false
+  integrations:
+    - type: WEBHOOK
+      url: https://webhook.site/8ae787f6-e77b-4d45-b47d-6bf8289b2661
+    
+---
+
+apiVersion: atlas.mongodb.com/v1
+kind: AtlasDeployment
+metadata:
+  name: simple-m10-eu-west
+  namespace: mongodb-atlas-system
+spec:
+  projectRef:
+    name: existing_project_name_here
+  deploymentSpec:
+    clusterType: REPLICASET
+    name: my-ako-replicaset
+    tags:
+    - key: "environment"
+      value: "mongo-infra-minikube"
+    - key: "owner"
+      value: "existing_project_name_here"
+    - key: "keep_until"
+      value: "1970-01-01"
+    backupEnabled: false
+    replicationSpecs:
+      - numShards: 1
+        regionConfigs:
+         - regionName: EU_WEST_1
+           providerName: AWS
+           autoScaling:
+             diskGB:
+               enabled: false
+             compute:
+               enabled: false
+               scaleDownEnabled: false
+              #  minInstanceSize: M10
+              #  maxInstanceSize: M10
+           analyticsSpecs:
+             instanceSize: M10
+             nodeCount: 0
+           electableSpecs:
+             instanceSize: M10
+             nodeCount: 3
+           priority: 7
+           readOnlySpecs:
+             instanceSize: M10
+             nodeCount: 0
