@@ -123,14 +123,24 @@ kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-atlas-kuberne
 echo "Operator is installed"
 echo ""
 kubectl get pods -n $AKO_namespace
+
+if (date +%F -d "+1 days") &> /dev/null
+then
+  AKO_KEEPUNTIL=$(date +%F -d "+1 days")
+else
+  AKO_KEEPUNTIL=$(date -v +1d +%F)
+fi
+export AKO_KEEPUNTIL
 awk -v AKO_ORGID="$AKO_ORGID" \
     -v AKO_PROJID="$AKO_PROJID" \
     -v AKO_PUBKEY="$AKO_PUBKEY" \
     -v AKO_PRIKEY="$AKO_PRIKEY" \
     -v AKO_PROJNAME="$AKO_PROJNAME" \
     -v AKO_IPACCESS=$(curl ipinfo.io/ip) \
-    -v AKO_KEEPUNTIL=$(date  +%F -d "+1 days") \
+    -v AKO_KEEPUNTIL="$AKO_KEEPUNTIL" \
     -f setup.awk deploy-a-cluster-template.yaml > deploy-a-cluster.yaml
+
+        
 #kubectl apply -f deploy-a-cluster.yaml
 echo
 echo "Cluster can been deployed using the command:"
