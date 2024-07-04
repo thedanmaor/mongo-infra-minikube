@@ -25,7 +25,7 @@ spec:
     name: my-project-connection
   projectIpAccessList:
     - cidrBlock: "0.0.0.0/32"
-      comment: "created by github.com/karl-denby/mongo-infra-minikube"
+      comment: "created by https://github.com/karl-denby/mongo-infra-minikube"
   alertConfigurations:
     - eventTypeName: "REPLICATION_OPLOG_WINDOW_RUNNING_OUT"
       enabled: true
@@ -44,8 +44,8 @@ spec:
   withDefaultAlertsSettings: false
   integrations:
     - type: WEBHOOK
-      url: https://webhook.site/8ae787f6-e77b-4d45-b47d-6bf8289b2661
-    
+      url: https://webhook.site/aaaaaaaa-1a11-11a1-aa11-1a1a1a1a1111
+   
 ---
 
 apiVersion: atlas.mongodb.com/v1
