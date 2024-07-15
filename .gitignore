@@ -1,2 +1,4 @@
 atlas-kubernetes-operator/atlas-cli/*
 atlas-kubernetes-operator/atlas-cli.tar.gz
+atlas-kubernetes-operator/clean-up.sh
+atlas-kubernetes-operator/deploy-a-cluster.yaml

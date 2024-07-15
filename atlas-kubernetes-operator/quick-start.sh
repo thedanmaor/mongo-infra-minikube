@@ -23,7 +23,7 @@ fi
 
 ### Prompt for version
 
-version_options=("v2.3.1" "v2.2.2" "v2.0.1" "Quit")
+version_options=("v2.3.1" "v2.2.2" "v2.0.1" "custom" "Quit")
 select opt in "${version_options[@]}"
 do
   case $opt in
@@ -39,10 +39,10 @@ do
       export AKO_version=v2.0.1
       break
       ;;
-      # v1.9.3)
-      # export AKO_version=v1.9.3
-      # break
-      # ;;
+      custom)
+      read -r AKO_version
+      break
+      ;;
       Quit)
       echo "Bye."
       break
@@ -67,6 +67,8 @@ else
   echo "- Memory = 2G"
   echo "- Disk space= 5G" 
 fi
+
+### Setup Atlas CLI
 
 if ! atlas &> /dev/null
 then 
@@ -118,6 +120,9 @@ then
   done
 fi
 
+
+### Install the operator with Atlas CLI
+
 echo "=== Using Atlas CLI to setup kubernetes operator"
 kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-atlas-kubernetes/$AKO_version/deploy/all-in-one.yaml
 echo "Operator is installed"
@@ -130,6 +135,8 @@ then
 else
   AKO_KEEPUNTIL=$(date -v +1d +%F)
 fi
+
+# Generate our deployment yaml file
 export AKO_KEEPUNTIL
 awk -v AKO_ORGID="$AKO_ORGID" \
     -v AKO_PROJID="$AKO_PROJID" \
@@ -140,7 +147,12 @@ awk -v AKO_ORGID="$AKO_ORGID" \
     -v AKO_KEEPUNTIL="$AKO_KEEPUNTIL" \
     -f setup.awk deploy-a-cluster-template.yaml > deploy-a-cluster.yaml
 
-        
+# Generate our clean up file
+awk -v AKO_PROJID="$AKO_PROJID" \
+    -v AKO_PUBKEY="$AKO_PUBKEY" \
+    -v AKO_PRIKEY="$AKO_PRIKEY" \
+    -f cleanup.awk clean-up.template > clean-up.sh
+
 #kubectl apply -f deploy-a-cluster.yaml
 echo
 echo "Cluster can been deployed using the command:"
