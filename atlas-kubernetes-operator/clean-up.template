@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Removing Minkube profile: atlas"
+minikube delete -p atlas
+
+echo "Attempting to delete Atlas cluster via API call"
+curl --user "public_goes_here:private_goes_here" \
+     --header "Content-Type: application/json" \
+     --header "Accept: application/vnd.atlas.2024-07-11+json" \
+     --digest \
+     --request DELETE https://cloud.mongodb.com/api/atlas/v2/groups/projectid_goes_here/clusters/my-ako-replicaset
+
+#unalias atlas
+rm atlas-cli.tar.gz
+rm -fr atlas-cli
+
