@@ -1,0 +1,62 @@
+---
+# Credentials that will be used as an Admin account for our deployed our Ops Manager
+apiVersion: v1
+data:
+  FirstName: QWRtaW4=
+  LastName: QWRtaW4=
+  Password: UGFzc3cwcmQxIQo=    # Passw0rd1!
+  Username: YWRtaW4=            # admin
+kind: Secret
+metadata:
+  name: om-admin-credentials
+  namespace: mongodb
+type: Opaque
+...
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: mongo-infra-minikube
+
+spec:
+  replicas: 1
+  version: 6.0.24
+  adminCredentials: om-admin-credentials
+
+  # This will prevent us having to go through the setup wizad when we first connect to Ops Manager
+  configuration:
+    mms.ignoreInitialUiSetup: "true"
+    automation.versions.source: mongodb
+    mms.adminEmailAddr: no@email.com
+    mms.fromEmailAddr: no@email.com
+    mms.mail.hostname: localhost
+    mms.mail.user: apikey
+    mms.mail.password: randomcharstring
+    mms.mail.port: "25"
+    mms.mail.ssl: "false"
+    mms.mail.transport: smtp
+    mms.minimumTLSVersion: TLSv1.2
+    mms.replyToEmailAddr: no@email.com
+
+  # We will want to access the Ops Manager UI from outside K8s so lets get a port in the 30000-32767 range for that
+  externalConnectivity:
+    type: NodePort
+    port: 30100
+
+  # Disable backup as we don´t have any other resources for oplog or blockstore setup just yet
+  backup:
+    enabled: false
+  
+  # Adjust ops manager container settings
+  statefulSet:
+    spec:
+      template:
+        metadata:
+          annotations:
+            key1: value1
+  
+  # Application Database
+  applicationDatabase:
+    members: 3
+    version: 6.0.12-ent
+...
