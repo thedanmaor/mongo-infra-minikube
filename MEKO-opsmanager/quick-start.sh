@@ -8,15 +8,15 @@ version_options=("1.26.0" "1.23.0" "1.21.0" "custom" "Quit")
 select opt in "${version_options[@]}"
 do
   case $opt in
-      v1.26.0)
-      export MEKO_version=1.2.6
+      1.26.0)
+      export MEKO_version=1.22.6
       break
       ;;
-      v1.23.0)
+      1.23.0)
       export MEKO_version=1.23.0
       break
       ;;
-      v1.21.0)
+      1.21.0)
       export MEKO_version=1.21.0
       break
       ;;
@@ -40,7 +40,7 @@ then
   echo "Minikube could not be found, please install."
   exit 1
 else
-  minikube start --cpus=4 --memory=16G --disk-size=60000mb -p opsmanager --namespace $MEKO_namespace
+  minikube start --cpus=4 --memory=15991mb --disk-size=60000mb -p opsmanager --namespace $MEKO_namespace
   minikube profile list
 fi
 
@@ -69,3 +69,8 @@ echo Username: admin
 echo Password: Passw0rd1!
 echo *******************************************************************************
 echo
+echo You can check progress with:
+echo \> kubectl get pods -w | grep mongo-infra-minikube-0
+echo \> kubectl logs -f pod/mongo-infra-minikube-0
+echo Access on http://localhost:8080
+echo \> nohup kubectl port-forward pod/mongo-infra-minikube-0 8080:8080 &
