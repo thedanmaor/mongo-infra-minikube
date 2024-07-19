@@ -61,7 +61,7 @@ cat deploy-om.template > deploy-om.yaml
 
 export MONGO_INFRA_MINIKUBE_IP=`minikube ip -p opsmanager`
 
-#kubectl apply -f deploy-om.yaml
+kubectl apply -f deploy-om.yaml
 echo
 echo -------------------------------------------------------------------------------
 echo "On Linux visit http://$MONGO_INFRA_MINIKUBE_IP:30100 in about 5 minutes, to view Ops Manager"
