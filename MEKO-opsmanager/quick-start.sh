@@ -61,16 +61,24 @@ cat deploy-om.template > deploy-om.yaml
 
 export MONGO_INFRA_MINIKUBE_IP=`minikube ip -p opsmanager`
 
-kubectl apply -f deploy-om.yaml
+#kubectl apply -f deploy-om.yaml
 echo
-echo *******************************************************************************
-echo Please visit http://$MONGO_INFRA_MINIKUBE_IP:30100 in about 5 minutes, as your Ops Manager should be ready
-echo Username: admin
-echo Password: Passw0rd1!
-echo *******************************************************************************
+echo -------------------------------------------------------------------------------
+echo "On Linux visit http://$MONGO_INFRA_MINIKUBE_IP:30100 in about 5 minutes, to view Ops Manager"
+echo "On Mac you need 2 steps:"
+echo "1. nohup kubectl port-forward pod/mongo-infra-minikube-0 8080:8080 &"
+echo "2. Then visit http://localhost:8080 in about 5 minutes"
+echo "------------------------------------------------------------------------------"
+echo "Username: admin"
+echo "Password: Passw0rd1!"
+echo "------------------------------------------------------------------------------"
 echo
-echo You can check progress with:
-echo \> kubectl get pods -w | grep mongo-infra-minikube-0
-echo \> kubectl logs -f pod/mongo-infra-minikube-0
-echo Access on http://localhost:8080
-echo \> nohup kubectl port-forward pod/mongo-infra-minikube-0 8080:8080 &
+echo "You can check Ops Manager startup progress with:"
+echo "\> kubectl get pods -w | grep mongo-infra-minikube-0"
+echo "\> kubectl logs -f pod/mongo-infra-minikube-0"
+echo
+echo "Now run:"
+echo "\> bash extras.sh"
+echo
+echo "To Deploy a cluster you can use any of the samples:"
+echo "\> https://github.com/mongodb/mongodb-enterprise-kubernetes/raw/master/samples/mongodb/agent-startup-options/replica-set-agent-startup-options.yaml"
