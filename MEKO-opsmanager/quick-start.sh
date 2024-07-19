@@ -81,4 +81,4 @@ echo "Now run:"
 echo "\> bash extras.sh"
 echo
 echo "To Deploy a cluster you can use any of the samples:"
-echo "\> https://github.com/mongodb/mongodb-enterprise-kubernetes/raw/master/samples/mongodb/agent-startup-options/replica-set-agent-startup-options.yaml"
+echo "\> kubectl apply -f https://github.com/mongodb/mongodb-enterprise-kubernetes/raw/master/samples/mongodb/agent-startup-options/replica-set-agent-startup-options.yaml"
