@@ -1,30 +1,33 @@
 # Usage
 
-### Example 1, Deploy OM and Replica Set
+## Example 1, Deploy OM and Replica Set
+
+1. Setup Ops Manager
 ```
-# Setup Ops Manager
 bash quick-start.sh
 ```
-This can take some time, maybe 6 or 7 minute (longer if your connection is slow). Wait for the output to show Ops Manager is running. Then hit ctrl+c to get your prompt back.
+**Note:** This can take some time, maybe 6 or 7 minute (longer if your connection is slow). Wait for the output to show Ops Manager is running (like below). Then hit ctrl+c to get your prompt back.
+```
+mongo-infra-minikube  1    7.0.8     Running    Running  Disabled    10m     
+```
+
+2. Validate that your Ops Manager is functioning
 
 On Linux:
-1. run the command `minikube ip`
+1. run the command `minikube ip -p opsmanager`
 2. Using a browser visit http://<ip.address.from.command>:30100 to view Ops Manager
 
 On Mac:
 1. nohup kubectl port-forward pod/mongo-infra-minikube-0 8080:8080 &
 2. Then visit http://localhost:8080
 
----
-
-Username: admin
-Password: Passw0rd1!
-
----
+**Login to Ops Manager**
+- Username: admin
+- Password: Passw0rd1!
 
 
+3. Create an Organization, Project and Deployment
 ```
-# Setup Org, config map and secret for a deployment and sample deployment (you can deploy or edit and apply yourself)
 bash extras.sh
 ```
 

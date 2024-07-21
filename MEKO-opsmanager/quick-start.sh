@@ -9,10 +9,10 @@ select opt in "${memory_options[@]}"
 do
   case $opt in
       8GB)
-      export minikube_memory=7995mb
+      export minikube_memory=7940mb
       export om_om_memory="4.0Gi"
       export om_appdb_memory="350Mi"
-      export deploy_mem="600Mi"
+      export deploy_mem="500Mi"
       break
       ;;
       16GB)
