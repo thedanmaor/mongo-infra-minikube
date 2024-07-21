@@ -20,7 +20,7 @@ metadata:
 
 spec:
   replicas: 1
-  version: 6.0.24
+  version: om_version_goes_here
   adminCredentials: om-admin-credentials
 
   # This will prevent us having to go through the setup wizad when we first connect to Ops Manager
@@ -54,9 +54,28 @@ spec:
         metadata:
           annotations:
             key1: value1
-  
+        containers:
+          - name: mongodb-ops-manager
+            resources:
+              requests:
+                cpu: "2.00"
+                memory: om_om_memory
+              limits:
+                cpu: "6.0"
+                memory: om_om_memory
+
   # Application Database
   applicationDatabase:
     members: 3
-    version: 6.0.12-ent
+    version: 6.0.0-ent
+    podSpec:
+      podTemplate:
+        spec:
+          containers:
+          - name: mongod
+            resources:
+              limits:
+                memory: om_appdb_memory
+              requests:
+                memory: om_appdb_memory
 ...

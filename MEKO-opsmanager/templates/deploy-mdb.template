@@ -1,0 +1,24 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: my-replica-sample
+spec:
+  members: 3
+  version: 5.0.0-ent
+  type: ReplicaSet
+  opsManager:
+    configMapRef:
+      name: my-project
+  credentials: my-credentials
+  persistent: true
+  podSpec:
+    # `podTemplate.spec.containers[].resources` should be specified otherwise, WiredTiger
+    # cache won't be calculated properly by MongoDB daemon.
+    podTemplate:
+      spec:
+        containers:
+          - name: mongodb-enterprise-database
+            resources:
+              limits:
+                cpu: "0.333"
+                memory: deploy_mem_goes_here

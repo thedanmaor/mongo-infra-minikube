@@ -2,22 +2,62 @@
 
 export MEKO_namespace=mongodb
 
-### Prompt for version
+### Prompt for memory
+echo "How much memory have you given to docker (ignore on linux)"
+memory_options=("8GB" "16GB" "32GB" "64GB")
+select opt in "${memory_options[@]}"
+do
+  case $opt in
+      8GB)
+      export minikube_memory=7995mb
+      export om_om_memory="4.0Gi"
+      export om_appdb_memory="350Mi"
+      export deploy_mem="600Mi"
+      break
+      ;;
+      16GB)
+      export minikube_memory=15991mb
+      export om_om_memory="5.0Gi"
+      export om_appdb_memory="500Mi"
+      export deploy_mem="1.0Gi"
+      break
+      ;;
+      32GB)
+      export minikube_memory=31982mb
+      export om_om_memory="6.0Gi"
+      export om_appdb_memory="1000Mi"
+      export deploy_mem="2.5Gi"
+      break
+      ;;
+      64GB)
+      export minikube_memory=63964mb
+      export om_om_mem="6.0Gi"
+      export om_appdb_mem="1000Mi"
+      break
+      ;;
+      *)
+      echo "Invalid option"
+      ;;
+  esac
+done
 
-version_options=("1.26.0" "1.23.0" "1.21.0" "custom" "Quit")
-select opt in "${version_options[@]}"
+
+### Prompt for operator version
+echo "Select a version of the operator"
+operator_options=("1.26.0" "1.25.0" "1.24.0" "custom" "Quit")
+select opt in "${operator_options[@]}"
 do
   case $opt in
       1.26.0)
-      export MEKO_version=1.22.6
+      export MEKO_version=1.26.0
       break
       ;;
-      1.23.0)
-      export MEKO_version=1.23.0
+      1.25.0)
+      export MEKO_version=1.25.0
       break
       ;;
-      1.21.0)
-      export MEKO_version=1.21.0
+      1.24.0)
+      export MEKO_version=1.24.0
       break
       ;;
       custom)
@@ -34,14 +74,41 @@ do
   esac
 done
 
+echo "Which version of Ops Manager would you like to install"
+opsman_options=("7.0.8" "6.0.24" "custom" "Quit")
+select opt in "${opsman_options[@]}"
+do
+  case $opt in
+      7.0.8)
+      export OM_VERSION=7.0.8
+      break
+      ;;
+      6.0.24)
+      export OM_VERSION=6.0.24
+      break
+      ;;
+      custom)
+      read -r OM_version
+      break
+      ;;
+      Quit)
+      echo "Bye."
+      exit
+      ;;
+      *)
+      echo "Invalid option"
+      exit
+      ;;
+  esac
+done
+
 # check if the minikube command is available and setup our cluser/profile
 if ! minikube &> /dev/null
 then 
   echo "Minikube could not be found, please install."
   exit 1
 else
-  minikube start --cpus=4 --memory=15991mb --disk-size=60000mb -p opsmanager --namespace $MEKO_namespace
-  minikube profile list
+  minikube start --cpus=4 --memory="$minikube_memory" --disk-size=60000mb -p opsmanager --namespace $MEKO_namespace
 fi
 
 # check for kubectl
@@ -57,28 +124,21 @@ else
   kubectl describe deployments mongodb-enterprise-operator -n $MEKO_namespace
 fi
 
-cat deploy-om.template > deploy-om.yaml
+cat templates/deploy-om.template > deploy-om.yaml
 
-export MONGO_INFRA_MINIKUBE_IP=`minikube ip -p opsmanager`
+# Generate our deployment yaml file
+awk -v OM_VERSION="$OM_VERSION" \
+    -v om_om_memory="$om_om_memory" \
+    -v om_appdb_memory="$om_appdb_memory" \
+    -f scripts/options.awk templates/deploy-om.template > deploy-om.yaml
+
+export deploy_mem="600Mi"
+awk -v deploy_mem="$deploy_mem" \
+    -f scripts/deployment.awk templates/deploy-mdb.template > deploy-mdb.yaml
+
+export MONGO_INFRA_MINIKUBE_IP=127.0.0.1
+MONGO_INFRA_MINIKUBE_IP=`minikube ip -p opsmanager`
 
 kubectl apply -f deploy-om.yaml
 echo
-echo -------------------------------------------------------------------------------
-echo "On Linux visit http://$MONGO_INFRA_MINIKUBE_IP:30100 in about 5 minutes, to view Ops Manager"
-echo "On Mac you need 2 steps:"
-echo "1. nohup kubectl port-forward pod/mongo-infra-minikube-0 8080:8080 &"
-echo "2. Then visit http://localhost:8080 in about 5 minutes"
-echo "------------------------------------------------------------------------------"
-echo "Username: admin"
-echo "Password: Passw0rd1!"
-echo "------------------------------------------------------------------------------"
-echo
-echo "You can check Ops Manager startup progress with:"
-echo "\> kubectl get pods -w | grep mongo-infra-minikube-0"
-echo "\> kubectl logs -f pod/mongo-infra-minikube-0"
-echo
-echo "Now run:"
-echo "\> bash extras.sh"
-echo
-echo "To Deploy a cluster you can use any of the samples:"
-echo "\> kubectl apply -f https://github.com/mongodb/mongodb-enterprise-kubernetes/raw/master/samples/mongodb/agent-startup-options/replica-set-agent-startup-options.yaml"
+kubectl get om -w
