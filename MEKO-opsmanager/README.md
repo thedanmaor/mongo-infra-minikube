@@ -8,7 +8,7 @@ On Linux/Mac:
 - `bash quick-start.sh`
 
 On Windows:
-- `powershell quick-start.ps
+- `powershell quick-start.ps`
 - You may need to enable scripts first with
   - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 
