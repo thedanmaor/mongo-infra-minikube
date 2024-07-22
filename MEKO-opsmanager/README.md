@@ -8,7 +8,9 @@ On Linux/Mac:
 - `bash quick-start.sh`
 
 On Windows:
-- `powershell quick-start.ps # You may need to enable scripts first with > Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
+- `powershell quick-start.ps
+- You may need to enable scripts first with
+  - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 
 **Note:** This can take some time, maybe 6 or 7 minute (longer if your connection is slow). Wait for the output to show Ops Manager is running (like below). Then hit ctrl+c to get your prompt back. Maybe wait an additional minute or two.
 ```
