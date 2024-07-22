@@ -39,7 +39,7 @@ On Linux/Mac:
 `bash clean-up.sh`
 
 ## Changelog
-2024-07-22 Start of windows/powershell support
-2024-07-21 Support for machines with only 16GB of RAM
-2024-07-19 Bring up any version of operator with Ops Manager 6.0.24
-2024-06-14 Added zsh script, both bash|zsh prompt for missing values
+- 2024-07-22 Start of windows/powershell support
+- 2024-07-21 Support for machines with only 16GB of RAM
+- 2024-07-19 Bring up any version of operator with Ops Manager 6.0.24
+- 2024-06-14 Added zsh script, both bash|zsh prompt for missing values
