@@ -11,21 +11,21 @@ do
       8GB)
       export minikube_memory=7935mb
       export om_om_memory="4.0Gi"
-      export om_appdb_memory="350Mi"
+      export om_appdb_memory="500Mi"
       export deploy_mem="500Mi"
       break
       ;;
       16GB)
       export minikube_memory=15980mb
       export om_om_memory="5.0Gi"
-      export om_appdb_memory="500Mi"
+      export om_appdb_memory="750Mi"
       export deploy_mem="1.0Gi"
       break
       ;;
       32GB)
       export minikube_memory=31970mb
       export om_om_memory="6.0Gi"
-      export om_appdb_memory="1000Mi"
+      export om_appdb_memory="1Gi"
       export deploy_mem="2.5Gi"
       break
       ;;
@@ -132,7 +132,6 @@ awk -v OM_VERSION="$OM_VERSION" \
     -v om_appdb_memory="$om_appdb_memory" \
     -f scripts/options.awk templates/deploy-om.template > deploy-om.yaml
 
-export deploy_mem="600Mi"
 awk -v deploy_mem="$deploy_mem" \
     -f scripts/deployment.awk templates/deploy-mdb.template > deploy-mdb.yaml
 

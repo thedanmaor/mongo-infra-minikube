@@ -3,7 +3,7 @@ kind: MongoDB
 metadata:
   name: my-replica-sample
 spec:
-  members: 3
+  members: 1
   version: 5.0.0-ent
   type: ReplicaSet
   opsManager:
