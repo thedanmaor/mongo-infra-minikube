@@ -9,30 +9,32 @@ select opt in "${memory_options[@]}"
 do
   case $opt in
       8GB)
-      export minikube_memory=7935mb
-      export om_om_memory="4.0Gi"
-      export om_appdb_memory="500Mi"
-      export deploy_mem="500Mi"
+      export minikube_memory=7900mb
+      # 7900MB = 7534Mi
+      export om_om_memory="4500Mi"
+      export om_appdb_memory="700Mi"
+      export deploy_mem="700Mi"
       break
       ;;
       16GB)
-      export minikube_memory=15980mb
-      export om_om_memory="5.0Gi"
-      export om_appdb_memory="750Mi"
-      export deploy_mem="1.0Gi"
+      export minikube_memory=15800mb
+      export om_om_memory="5500Mi"
+      export om_appdb_memory="900Mi"
+      export deploy_mem="900Mi"
       break
       ;;
       32GB)
-      export minikube_memory=31970mb
-      export om_om_memory="6.0Gi"
-      export om_appdb_memory="1Gi"
-      export deploy_mem="2.5Gi"
+      export minikube_memory=31900mb
+      export om_om_memory="6000Mi"
+      export om_appdb_memory="1200Mi"
+      export deploy_mem="1200Mi"
       break
       ;;
       64GB)
-      export minikube_memory=63964mb
-      export om_om_mem="6.0Gi"
-      export om_appdb_mem="1000Mi"
+      export minikube_memory=63800mb
+      export om_om_mem="6000GM"
+      export om_appdb_mem="12000Mi"
+      export deploy_mem="1200Mi"
       break
       ;;
       *)
