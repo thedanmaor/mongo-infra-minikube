@@ -5,10 +5,12 @@ Deploy MongoDB software and tools into a local minikube environment
 
 | Feature | Supported | Notes |
 | --- | --- | --- |
-| Atlas Kubernetes Operator | :heavy_check_mark: | `cd atlas-kubernetes-operator` [README.md](/atlas-kubernetes-operator/README.md) |
-| Enterprise Kubernetes Operator | :heavy_check_mark: | `cd enterprise-kubernetes-operator` [README.md](/enterprise-kubernetes-operator/README.md) |
+| Atlas Kubernetes Operator | :heavy_check_mark: | `cd atlas-kubernetes-operator` [README.md](/AKO-atlas/README.md) |
+| Enterprise Kubernetes Operator - Ops Manager | :heavy_check_mark: | `cd enterprise-kubernetes-operator` [README.md](/MEKO-opsmanager/README.md) |
+| Enterprise Kubernetes Operator - Cloud Manager | :heavy_check_mark: | `cd enterprise-kubernetes-operator` [README.md](/MEKO-cloudmanager/README.md) |
 
 
 ## Changelog
+- 2024-07-23 AKO and MEKO/Ops-Manager now support powershell (tested on Windows 11 and Linux `pwsh`)
 - 2024-06-12 deploy cluster into a cloud manager project
 - 2024-06-05 created repo and added ako code from our sister project [mongo-infra-docker](https://github.com/karl-denby/mongo-infra-docker)
