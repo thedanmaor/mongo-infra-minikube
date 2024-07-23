@@ -124,8 +124,6 @@ else
   kubectl describe deployments mongodb-enterprise-operator -n $MEKO_namespace
 fi
 
-cat templates/deploy-om.template > deploy-om.yaml
-
 # Generate our deployment yaml file
 awk -v OM_VERSION="$OM_VERSION" \
     -v om_om_memory="$om_om_memory" \

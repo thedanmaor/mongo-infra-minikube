@@ -2,6 +2,7 @@ apiVersion: mongodb.com/v1
 kind: MongoDB
 metadata:
   name: my-replica-sample
+  namespace: mongodb
 spec:
   members: 1
   version: 5.0.0-ent
