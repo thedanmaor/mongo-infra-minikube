@@ -13,25 +13,25 @@ $memory_option = Read-Host -Prompt "Enter a number 1-4: "
 Switch ($memory_option)
 {
     1 {
-        $minikube_memory="7900Mi"
+        $minikube_memory="7900mb"
         $om_om_memory="4500Mi"
         $om_appdb_memory="750Mi"
         $deploy_mem="750Mi"
     }
     2 {
-        $minikube_memory="15800Mi"
+        $minikube_memory="15800mb"
         $om_om_memory="6.0Gi"
         $om_appdb_memory="750Mi"
         $deploy_mem="750Mi"
     }
     3 {
-        $minikube_memory="31935Mi"
+        $minikube_memory="31935mb"
         $om_om_memory="6.0Gi"
         $om_appdb_memory="1Gii"
         $deploy_mem="800Mi"
     }
     4 {
-        $minikube_memory="63935Mi"
+        $minikube_memory="63935mb"
         $om_om_memory="8.0Gi"
         $om_appdb_memory="2.0Gi"
         $deploy_mem="1.2Gi"
