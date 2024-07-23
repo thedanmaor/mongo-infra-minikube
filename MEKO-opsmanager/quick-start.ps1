@@ -14,27 +14,28 @@ Switch ($memory_option)
 {
     1 {
         $minikube_memory="7900mb"
+        # 7900MB = 7534Mi
         $om_om_memory="4500Mi"
-        $om_appdb_memory="750Mi"
-        $deploy_mem="750Mi"
+        $om_appdb_memory="700Mi"
+        $deploy_mem="700Mi"
     }
     2 {
         $minikube_memory="15800mb"
-        $om_om_memory="6.0Gi"
-        $om_appdb_memory="750Mi"
-        $deploy_mem="750Mi"
+        $om_om_memory="5500Mi"
+        $om_appdb_memory="900Mi"
+        $deploy_mem="9000Mi"
     }
     3 {
-        $minikube_memory="31935mb"
-        $om_om_memory="6.0Gi"
-        $om_appdb_memory="1Gii"
-        $deploy_mem="800Mi"
+        $minikube_memory="31900mb"
+        $om_om_memory="6000Mi"
+        $om_appdb_memory="1200Mi"
+        $deploy_mem="1200Mi"
     }
     4 {
-        $minikube_memory="63935mb"
-        $om_om_memory="8.0Gi"
-        $om_appdb_memory="2.0Gi"
-        $deploy_mem="1.2Gi"
+        $minikube_memory="63800mb"
+        $om_om_memory="8000Mi"
+        $om_appdb_memory="2000Mi"
+        $deploy_mem="1200Mi"
     }
 }
 
