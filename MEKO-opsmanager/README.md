@@ -31,6 +31,9 @@ mongo-infra-minikube  1    7.0.8     Running    Running  Disabled    10m
 On Linux/Mac:
 - `bash extras.sh`
 
+On Windows:
+- `powershell extras.ps1`
+
 ## Clean Up
 
 This will remove the kubernetes cluster and with it Ops Manager and your database
@@ -38,7 +41,11 @@ This will remove the kubernetes cluster and with it Ops Manager and your databas
 On Linux/Mac:
 `bash clean-up.sh`
 
+On Windows:
+- `powershell clean-up.ps1`
+
 ## Changelog
+- 2024-07-22 Powershell is functionall equivalent to bash
 - 2024-07-22 Start of windows/powershell support
 - 2024-07-21 Support for machines with only 16GB of RAM
 - 2024-07-19 Bring up any version of operator with Ops Manager 6.0.24

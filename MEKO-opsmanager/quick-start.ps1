@@ -13,16 +13,16 @@ $memory_option = Read-Host -Prompt "Enter a number 1-4: "
 Switch ($memory_option)
 {
     1 {
-        $minikube_memory="7935mb"
-        $om_om_memory="4.0Gi"
-        $om_appdb_memory="500Mi"
-        $deploy_mem="520Mi"
+        $minikube_memory="7900mb"
+        $om_om_memory="4800mb"
+        $om_appdb_memory="750Mi"
+        $deploy_mem="750Mi"
     }
     2 {
-        $minikube_memory="15935mb"
-        $om_om_memory="5.0Gi"
+        $minikube_memory="15800mb"
+        $om_om_memory="6.0Gi"
         $om_appdb_memory="750Mi"
-        $deploy_mem="650Mi"
+        $deploy_mem="750Mi"
     }
     3 {
         $minikube_memory="31935mb"
@@ -98,7 +98,10 @@ kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-enterprise-ku
 kubectl describe deployments mongodb-enterprise-operator -n "$MEKO_namespace"
 
 # Generate Ops Manager
-Get-Content -Path templates\deploy-om.template | %{ $_ -replace 'om_version_goes_here', "$OM_VERSION"} | %{ $_ -replace 'om_om_memory', "$om_om_memory"} | %{ $_ -replace 'om_appdb_memory', "$om_appdb_memory"} > deploy-om.yaml
+Get-Content -Path templates\deploy-om.template | %{ $_ -replace 'om_version_goes_here', "$OM_VERSION"} | %{ $_ -replace 'om_om_memory', "$om_om_memory"} | %{ $_ -replace 'om_appdb_memory', "$om_appdb_memory"} | Out-File -FilePath deploy-om.yaml
+
+# Generate Deployment
+Get-Content -Path templates\deploy-mdb.template | %{ $_ -replace 'deploy_mem_goes_here', "$deploy_mem"} | Out-File -FilePath deploy-mdb.yaml
 
 # Deploy and Display
 kubectl apply -f deploy-om.yaml
