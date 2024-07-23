@@ -4,3 +4,4 @@ atlas-kubernetes-operator/clean-up.sh
 atlas-kubernetes-operator/deploy-a-cluster.yaml
 MEKO-opsmanager/deploy-om.yaml
 MEKO-opsmanager/deploy-mdb.yaml
+AKO-atlas/clean-up.sh
