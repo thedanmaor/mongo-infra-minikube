@@ -1,10 +1,10 @@
 $AKO_namespace="mongodb-atlas-system"
 
 $AKO_ORGID = Read-Host -Prompt "Enter Organization ID"
-$AKO_PROJ = Read-Host -Prompt "Enter Project ID"
-$AKO_PUBKEY = Read-Host -Prompt "Enter Organization ID"
-$AKO_PRIKEY = Read-Host -Prompt "Enter Organization ID"
-$AKO_PROJNAME = Read-Host -Prompt "Enter Organization ID"
+$AKO_PROJID = Read-Host -Prompt "Enter Project ID"
+$AKO_PUBKEY = Read-Host -Prompt "Enter Public Key"
+$AKO_PRIKEY = Read-Host -Prompt "Enter Private Key"
+$AKO_PROJNAME = Read-Host -Prompt "Enter Project Name"
 
 ### Prompt for version
 Write-Host "What version of the operator would you like to install"
@@ -46,6 +46,7 @@ Switch ($atlas_cli_present)
     }
     N {
         echo "Downloading it for you to file > atlas-cli-setup.msi < please install and run again"
+	echo "You will need to restart this terminal"
         Invoke-WebRequest -Uri https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.25.0_windows_x86_64.msi -OutFile atlas-cli-setup.msi
         exit
     }
@@ -58,7 +59,7 @@ $AKO_KEEPUNTIL=(Get-Date).adddays(1).ToString("yyy-MM-dd")
 $AKO_IPACCESS=(Invoke-WebRequest -Uri https://ipinfo.io/ip).Content
 
 # modify our template file
-Get-Content -Path templates\deploy-om.template | %{ $_ -replace 'AKO_ORGID', "$AKO_ORGID"} | %{ $_ -replace 'AKO_PROJID', "$AKO_PROJID"} | %{ $_ -replace 'AKO_PUBKEY', "$AKO_PUBKEY"} | %{ $_ -replace 'AKO_PRIKEY', "$AKO_PRIKEY"} | %{ $_ -replace 'AKO_PROJNAME', "$AKO_PROJNAME"} | %{ $_ -replace 'AKO_IPACCESS', "$AKO_IPACCESS"} | %{ $_ -replace 'AKO_KEEPUNTIL', "$AKO_KEEPUNTIL"} | Out-File -FilePath deploy-a-cluster.yaml
+Get-Content -Path deploy-a-cluster-template.yaml | %{ $_ -replace 'orgid_goes_here', "$AKO_ORGID"} | %{ $_ -replace 'projectid_goes_here', "$AKO_PROJID"} | %{ $_ -replace 'public_goes_here', "$AKO_PUBKEY"} | %{ $_ -replace 'private_goes_here', "$AKO_PRIKEY"} | %{ $_ -replace 'existing_project_name_here', "$AKO_PROJNAME"} | %{ $_ -replace '0.0.0.0', "$AKO_IPACCESS"} | %{ $_ -replace '1970-01-01', "$AKO_KEEPUNTIL"} | Out-File -FilePath deploy-a-cluster.yaml
 
 # modify our clean up file
 # TODO
@@ -66,5 +67,5 @@ Get-Content -Path templates\deploy-om.template | %{ $_ -replace 'AKO_ORGID', "$A
 # Output
 echo "Cluster can been deployed using the command:"
 echo "$ kubectl apply -f deploy-a-cluster.yaml"
-echo
+echo ""
 echo "Please modify the above file to your requirments before running"
