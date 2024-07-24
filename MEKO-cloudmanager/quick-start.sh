@@ -1,19 +1,11 @@
 #!/bin/bash
-export CM_version=master
+export CM_version=1.25.0
 export CM_namespace=mongodb
 export CM_URL=https://cloud.mongodb.com
 
-if [[ -z ${CM_ORGID+x} ]]; then
-  read -r -p "Please provide your Cloud Manager Organization ID: " -c CM_ORGID
-fi
-
-if [[  -z ${CM_PUBKEY+x} ]]; then
-  read -r -p "Please provide your API Public Key: " -c CM_PUBKEY
-fi
-
-if [[ -z ${CM_PRIKEY+x} ]]; then
-  read -r -p "Please provide your API Private Key: " -c CM_PRIKEY
-fi
+read -p "Please provide your Cloud Manager Organization ID: " CM_ORGID
+read -p "Please provide your API Public Key: " CM_PUBKEY
+read -p "Please provide your API Private Key: " CM_PRIKEY
 
 # check if the minikube command is available and setup our cluser/profile
 if ! minikube &> /dev/null
@@ -56,8 +48,8 @@ metadata:
   name: my-project
   namespace: mongodb
 data:
-  projectName: kubernetes         # this is an optional parameter; when omitted, the Operator creates a project with the resource name
-  orgId: $CM_ORGID # this is a required parameter
+  projectName: mongo-infra-minikube # this is an optional parameter; when omitted, the Operator creates a project with the resource name
+  orgId: "$CM_ORGID" # this is a required parameter
   baseUrl: https://cloud.mongodb.com
 EOF
 
