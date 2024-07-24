@@ -8,7 +8,7 @@ Once you have these you should export them, and then run `zsh quick-start.zsh` (
 
 If you don't provide them, we will prompt you to enter them when you run the script.
 
-### Example 1, providing values on linux
+### Example 1 
 ```
 bash quick-start.sh 
 powershell quick-start.ps1
