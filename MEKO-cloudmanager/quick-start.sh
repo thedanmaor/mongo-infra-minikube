@@ -1,18 +1,18 @@
-#!/bin/zsh
+#!/bin/bash
 export CM_version=master
 export CM_namespace=mongodb
 export CM_URL=https://cloud.mongodb.com
 
-if [[ -n CM_ORGID ]]; then
-  vared -p "Please provide your Cloud Manager Organization ID: " -c CM_ORGID
+if [[ -z ${CM_ORGID+x} ]]; then
+  read -r -p "Please provide your Cloud Manager Organization ID: " -c CM_ORGID
 fi
 
-if [[  -n CM_PUBKEY ]]; then
-  vared -p "Please provide your API Public Key: " -c CM_PUBKEY
+if [[  -z ${CM_PUBKEY+x} ]]; then
+  read -r -p "Please provide your API Public Key: " -c CM_PUBKEY
 fi
 
-if [[ -n CM_PRIKEY ]]; then
-  vared -p "Please provide your API Private Key: " -c CM_PRIKEY
+if [[ -z ${CM_PRIKEY+x} ]]; then
+  read -r -p "Please provide your API Private Key: " -c CM_PRIKEY
 fi
 
 # check if the minikube command is available and setup our cluser/profile
