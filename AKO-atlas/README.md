@@ -10,7 +10,8 @@ Get a kubernetes cluster, the MongoDB Atlas Kubernetes Operator and and Atlas Pr
 ## Usage
 Simply run this command (from this folder) and follow the prompts:
 ```
-bash quick-start.sh
+bash quick-start.sh # on linux/mac
+powershell quick-start.ps1 # on windows
 ```
 
 You can then take a look at the generated `deploy-a-cluster.yaml` file, or run:
@@ -23,5 +24,6 @@ This will create your secret (for your api key), your project, and an m10 deploy
 ## Clean up
 To remove the minikube cluster and any tools that where downloaded to this directory simply run
 ```
-bash clean-up.sh
+bash clean-up.sh # on linux/mac
+powershell clean-up.sh # on windows
 ```
