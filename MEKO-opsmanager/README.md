@@ -4,12 +4,11 @@
 
 ### 1. Setup Ops Manager
 
-On Linux/Mac:
-- `bash quick-start.sh`
-
-On Windows:
-- `powershell quick-start.ps1`
-- You may need to enable scripts first with
+```
+bash quick-start.sh # On Linux/Mac
+powershell quick-start.ps1 # On Windows
+```
+- Notes: If you are on windows you might get an error if your not allowed to run scripts, you can allow them with this:
   - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 
 **Note:** This can take some time, maybe 6 or 7 minute (longer if your connection is slow). Wait for the output to show Ops Manager is running (like below). Then hit ctrl+c to get your prompt back. Maybe wait an additional minute or two.
