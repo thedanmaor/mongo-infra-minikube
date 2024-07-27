@@ -90,7 +90,7 @@ do
       break
       ;;
       custom)
-      read -r OM_version
+      read -r OM_VERSION
       break
       ;;
       Quit)
