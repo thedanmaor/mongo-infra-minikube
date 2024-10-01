@@ -1,0 +1,16 @@
+[ req ]
+default_bits = 4096
+default_md = sha256
+prompt = no
+distinguished_name = dn
+
+[ dn ]
+C = IL
+ST = IL
+L = Tel-Aviv
+O = MongoDB
+OU = TSE-agents
+CN = my-replica-sample-agent
+
+[ client_cert ]
+extendedKeyUsage = clientAuth

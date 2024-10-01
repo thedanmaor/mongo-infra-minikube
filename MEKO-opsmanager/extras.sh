@@ -30,7 +30,7 @@ do
   esac
 done
 
-
+createOrg(){
 # Create an org/project
 # echo "$MONGO_INFRA_MINIKUBE_GLOBAL_API_PUBLIC:$MONGO_INFRA_MINIKUBE_GLOBAL_API_PRIVATE"
 curl --user "$MONGO_INFRA_MINIKUBE_GLOBAL_API_PUBLIC:$MONGO_INFRA_MINIKUBE_GLOBAL_API_PRIVATE"  \
@@ -64,15 +64,34 @@ data:
   orgId: $MONGO_INFRA_MINIKUBE_ORG
   baseUrl: http://mongo-infra-minikube-svc.mongodb.svc.cluster.local:8080
 EOF
+}
 
 # Create deployment
-deployment_options=("Deploy-Sample" "Quit")
+deployment_options=("Create-Org" "Deploy-Sample" "Deploy-SSL-on-top-of-Sample" "Deploy-MDBU" "Quit")
 select opt in "${deployment_options[@]}"
 do
   case $opt in
+      Create-Org)
+      createOrg
+      ;;
       Deploy-Sample)
       kubectl apply -f deploy-mdb.yaml
       break
+      ;;
+      Deploy-SSL-on-top-of-Sample)
+      cd ssl-for-om-k8s/certs
+      ./create-certificates.sh
+      cd ..
+      ./ssl.sh
+      kubectl apply -f deploy-db-ssl.yaml
+      sleep 5
+      kubectl delete pod/my-replica-sample-0
+      cd ..
+      break
+      ;;
+      Deploy-MDBU)
+      kubectl apply -f mdbu.yaml
+      kubectl get mdbu -w
       ;;
       Quit)
       echo "Please edit deploy-mdb.yaml, then deploy with:"
