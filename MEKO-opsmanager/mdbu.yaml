@@ -31,5 +31,3 @@ spec:
       name: "readWrite"
     - db: "admin"
       name: "userAdminAnyDatabase"
----
-

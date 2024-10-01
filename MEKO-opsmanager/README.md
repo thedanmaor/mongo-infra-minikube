@@ -33,6 +33,10 @@ On Linux/Mac:
 On Windows:
 - `powershell extras.ps1`
 
+### 4. Deploy example with SSL & Auth enabled.
+On Linux/Mac:
+- `bash extras.sh`
+- 
 ## Clean Up
 
 This will remove the kubernetes cluster and with it Ops Manager and your database
